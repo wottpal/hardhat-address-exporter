@@ -1,6 +1,6 @@
 {
   "name": "hardhat-address-exporter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Hardhat plugin to automatically export addresses of deployed contracts.",
   "repository": "github:wottpal/hardhat-address-exporter",
   "author": "Dennis Zoma",
