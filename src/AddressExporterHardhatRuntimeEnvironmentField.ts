@@ -53,7 +53,7 @@ export class AddressExporterHardhatRuntimeEnvironmentField {
 
     // Prettify all generated files
     if (this.hre.config.addressExporter.runPrettier) {
-      await exec(`npx prettier --write ${addressesDir}`)
+      await exec(`npx prettier --write ${addressesDir}/**.ts`)
     }
   }
 }

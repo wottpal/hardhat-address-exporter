@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@nomiclabs/hardhat-ethers': ^2.1.0
   '@types/chai': ^4.3.1
   '@types/fs-extra': ^5.0.4
   '@types/mocha': ^5.2.6
@@ -18,6 +19,7 @@ specifiers:
   typescript: ^4.7.4
 
 devDependencies:
+  '@nomiclabs/hardhat-ethers': 2.1.0_72jgnctblym52z6vqt46lbuldu
   '@types/chai': 4.3.1
   '@types/fs-extra': 5.1.0
   '@types/mocha': 5.2.7
@@ -478,6 +480,16 @@ packages:
 
   /@noble/secp256k1/1.6.3:
     resolution: {integrity: sha512-T04e4iTurVy7I8Sw4+c5OSN9/RkPlo1uKxAomtxQNLq8j1uPAqnsqG1bqvY3Jv7c13gyr6dui0zmh/I3+f/JaQ==}
+    dev: true
+
+  /@nomiclabs/hardhat-ethers/2.1.0_72jgnctblym52z6vqt46lbuldu:
+    resolution: {integrity: sha512-vlW90etB3675QWG7tMrHaDoTa7ymMB7irM4DAQ98g8zJoe9YqEggeDnbO6v5b+BLth/ty4vN6Ko/kaqRN1krHw==}
+    peerDependencies:
+      ethers: ^5.0.0
+      hardhat: ^2.0.0
+    dependencies:
+      ethers: 5.6.9
+      hardhat: 2.10.1_6oasmw356qmm23djlsjgkwvrtm
     dev: true
 
   /@scure/base/1.1.1:
