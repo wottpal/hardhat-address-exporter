@@ -2,15 +2,8 @@
 
 A plugin for [hardhat](https://hardhat.org) that exports deployed contract addresses into typescript files. It is multichain compatible.
 
-## What
-
-<_A longer, one paragraph, description of the plugin_>
-
-This plugin will help you with world domination by implementing a simple tic-tac-toe in the terminal.
 
 ## Installation
-
-<_A step-by-step guide on how to install the plugin_>
 
 ```bash
 npm install hardhat-address-exporter @nomiclabs/hardhat-ethers ethers hardhat
@@ -41,6 +34,7 @@ Also import the plugin in the scripts you are using it as well.
 This plugin extends the Hardhat Runtime Environment by adding an `addressExporter` field
 whose type is `AddressExporterHardhatRuntimeEnvironmentField`. See *Usage* below for more information on how to use it.
 
+
 ## Configuration
 
 This plugin extends the `HardhatUserConfig` object with an optional
@@ -56,6 +50,7 @@ module.exports = {
   }
 };
 ```
+
 
 ## Usage
 
