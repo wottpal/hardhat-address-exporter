@@ -61,3 +61,7 @@ typings/
 
 # environment variables
 .env
+
+# misc
+.DS_Store
+*.pem

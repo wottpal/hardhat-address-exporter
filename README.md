@@ -1,58 +1,92 @@
-# Hardhat TypeScript plugin boilerplate
+# hardhat-address-exporter
 
-This is a sample Hardhat plugin written in TypeScript. Creating a Hardhat plugin
-can be as easy as extracting a part of your config into a different file and
-publishing it to npm.
+A plugin for [hardhat](https://hardhat.org) that exports deployed contract addresses into typescript files. It is multichain compatible.
 
-This sample project contains an example on how to do that, but also comes with
-many more features:
+## What
 
-- A mocha test suite ready to use
-- TravisCI already setup
-- A package.json with scripts and publishing info
-- Examples on how to do different things
+<_A longer, one paragraph, description of the plugin_>
+
+This plugin will help you with world domination by implementing a simple tic-tac-toe in the terminal.
 
 ## Installation
 
-To start working on your project, just run
+<_A step-by-step guide on how to install the plugin_>
 
 ```bash
-npm install
+npm install hardhat-address-exporter @nomiclabs/hardhat-ethers ethers hardhat
 ```
 
-## Plugin development
+Import the plugin in your `hardhat.config.js`:
 
-Make sure to read our [Plugin Development Guide](https://hardhat.org/advanced/building-plugins.html) to learn how to build a plugin.
+```js
+require("hardhat-address-exporter");
+```
 
-## Testing
+Or if you are using TypeScript, in your `hardhat.config.ts`:
 
-Running `npm run test` will run every test located in the `test/` folder. They
-use [mocha](https://mochajs.org) and [chai](https://www.chaijs.com/),
-but you can customize them.
+```ts
+import "hardhat-address-exporter";
+```
 
-We recommend creating unit tests for your own modules, and integration tests for
-the interaction of the plugin with Hardhat and its dependencies.
+Also import the plugin in the scripts you are using it as well.
 
-## Linting and autoformat
 
-All of Hardhat projects use [prettier](https://prettier.io/) and
-[tslint](https://palantir.github.io/tslint/).
+## Required plugins
 
-You can check if your code style is correct by running `npm run lint`, and fix
-it with `npm run lint:fix`.
+- [@nomiclabs/hardhat-ethers](https://github.com/NomicFoundation/hardhat/tree/master/packages/hardhat-ethers)
 
-## Building the project
 
-Just run `npm run build` ️👷
+## Environment extensions
 
-## README file
+This plugin extends the Hardhat Runtime Environment by adding an `addressExporter` field
+whose type is `AddressExporterHardhatRuntimeEnvironmentField`. See *Usage* below for more information on how to use it.
 
-This README describes this boilerplate project, but won't be very useful to your
-plugin users.
+## Configuration
 
-Take a look at `README-TEMPLATE.md` for an example of what a Hardhat plugin's
-README should look like.
+This plugin extends the `HardhatUserConfig` object with an optional
+`addressExporter` field.
 
-## Migrating from Buidler?
+This is an example of how to set it. It also shows the default values:
 
-Take a look at [the migration guide](MIGRATION.md)!
+```ts
+module.exports = {
+  addressExporter: {
+    outDir: path.resolve('./addresses'),
+    runPrettier: false,
+  }
+};
+```
+
+## Usage
+
+After deploying your contracts in a script (e.g. `scripts/deploy.ts`), call `hre.addressExporter.save(...)` with an object of contract-names (keys) and contract-addresses (values). The chain it's deployed on is automatically taken from `hre.network.config.chainId` and used as a filename for the addresses object.
+
+This is an example: 
+
+```ts
+const ContractName = await ethers.getContractFactory('ContractName')
+const contract = await ContractName.deploy()
+await contract.deployed()
+
+console.log('ContractName deployed to:', contract.address)
+
+await hre.addressExporter.save({
+  ContractName: contract.address,
+})
+```
+
+This will result in two files being created in the `outDir` defined above (assuming the chain-id is 1337):
+
+`1337.ts`
+```ts
+export const ContractAddresses_1337 = {
+  ContractName: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+}
+```
+
+`addresses.ts`
+```ts
+import { ContractAddresses_1337 } from './1337'
+export const ContractAddresses = { '1337': ContractAddresses_1337 }
+export type ContractAddressesKey = keyof typeof ContractAddresses
+```
